@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: sans-serif;
+  --bg-color: #292929;
+  --text-color: #ffffff;
+  --danger: #af2020;
+  --secondary: #494949;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+input[type=text] {
+  border-bottom: 3px solid white;
+  background-color: var(--bg-color);
+}
+
+.bg {
+  background-color: var(--secondary);
+}
