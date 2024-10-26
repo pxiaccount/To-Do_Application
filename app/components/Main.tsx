@@ -5,7 +5,7 @@ import Image from 'next/image'
 let ID: number = 0
 
 interface dataType {
-  content: String,
+  content: string,
   id: number
 }
 const Main = () => {
