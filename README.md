@@ -8,7 +8,7 @@ Download [Node.js](https://nodejs.org/en) and follow this tutorial:
 
 1. Download project
 2. <code>cd</code> in to project directory
-3. Type this command
+3. Type these command
 
 ```
 npm install
