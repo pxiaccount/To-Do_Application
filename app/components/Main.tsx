@@ -44,10 +44,6 @@ const Main = () => {
                   </div>
                   {popup === x.id && (
                   <div className='absolute z-10 text-white border-2 border-white bg rounded-lg'>
-                    {/* Working on Reminder button */}
-                  {/* <button className="hover:bg-slate-500 z-20 w-full p-3 rounded-lg">
-                    Reminder
-                  </button> */}
                   <button className="hover:bg-red-700 z-20 w-full p-3 rounded-lg" onClick={() => {setData(data.filter(y => y.id !== x.id))}}>
                     Delete
                   </button>
