@@ -2,11 +2,11 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-let ID: any = 0
+let ID: number = 0
 
 interface dataType {
   content: String,
-  id: any
+  id: number
 }
 const Main = () => {
     const [text, setText] = useState('')
