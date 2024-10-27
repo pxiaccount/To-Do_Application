@@ -29,6 +29,7 @@ const Main = () => {
         }
         setText("")
         setDate("")
+        setDesc("")
       }
 
     const showPopup = (id: number) => {
