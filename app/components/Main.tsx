@@ -6,40 +6,61 @@ let ID: number = 0
 
 interface dataType {
   content: string,
-  id: number
+  id: number,
+  due: string,
+  description: string
 }
 const Main = () => {
     const [text, setText] = useState('')
     const [data, setData] = useState<dataType[]>([])
     const [popup, setPopup] = useState<number | null>(null)
-
+    const [descNum, setDescNum] = useState<number | null>(null)
+    const [date, setDate] = useState('')
+    const [desc, setDesc] = useState('')
+    
     const update = () => {
         if (text != "") {
           setData(
             [
                 ...data,
-                {id: ID++, content: text}
+                {id: ID++, content: text, due: date, description: desc}
             ]
         )
         }
-    }
+        setText("")
+        setDate("")
+      }
 
     const showPopup = (id: number) => {
       setPopup(popup === id ? null : id)
     }
 
+    const showDesc = (id: number) => {
+      setDescNum(descNum === id ? null : id)
+    }
+
+    const updateDesc = (id: number, descA: string) => {
+      setData(data.map(z =>
+        z.id === id ? { ...z, description: descA } : z
+      ))
+    }
+
   return (
     <>
-    <form>
-      <input className="text-xl mt-10 text-center outline-none" type="text" value={text} onChange={(e) => setText(e.target.value)}/>
+    <form className='mt-5'>
+      <label htmlFor="todoText" className='absolute font-serif italic top-48 opacity-50'>To-Do</label>
+      <input id='todoText' className="mx-2 text-xl mt-10 text-center outline-none theme-dark" type="text" value={text} onChange={(e) => setText(e.target.value)}/>
+      <label htmlFor="todoText" className='absolute font-serif italic top-48 opacity-50'>Due Date (optional)</label>
+      <input id='date' className="mx-2 w-28 text-xl mt-10 outline-none theme-dark" type="text" value={date} onChange={(e) => setDate(e.target.value)}/>
     </form>
       <button className='mx-5 bg-slate-100 text-slate-900 rounded-lg font-bold w-64 py-3 my-5 hover:bg-slate-300 hover:text-slate-950 outline-none' onClick={update}>Add</button>
-      <ul className='text-start'>
+      <ul className='text-start align-middle'>
         {data.map(x => (
-          <li className="flex justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg" key={x.id}>
-                <div className='my-1'>{x.content}</div>
-              <div className='relative inline-block group'>
-                <div className='p-2 cursor-pointer select-none' onClick={() => showPopup(x.id)}>
+          <li className="flex flex-wrap gap-4 justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg transition-all" key={x.id} >
+                <div className='my-1 inline-block hover:text-gray-300 hover:underline cursor-pointer select-none' onClick={() => showDesc(x.id)}>{x.content}</div>
+                <div className='absolute mt-7 font-serif italic opacity-50 ml-56'>{x.due}</div>
+                <div className='inline-block'>
+                <div className='p-2 inline-block cursor-pointer select-none' onClick={() => showPopup(x.id)}>
                   <Image src='dots.svg' alt='dots' width={30} height={30} className='mr-5 my-2 cursor-pointer'/>
                   </div>
                   {popup === x.id && (
@@ -50,6 +71,12 @@ const Main = () => {
                   </div>
             )}
             </div>
+              {descNum === x.id && (
+                  <div className='flex-1'>
+                    <label htmlFor="description" className='opacity-50 italic font-serif text-sm'>Description (optional)</label>
+                    <textarea id="description" className='bg-zinc-800 rounded-lg w-64' value={x.description} onChange={(e) => updateDesc(x.id, e.target.value)}></textarea>
+                  </div>
+              )}
             </li>
         ))}
       </ul>

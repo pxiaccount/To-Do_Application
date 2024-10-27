@@ -16,10 +16,29 @@ body {
 }
 
 input[type=text] {
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid;
+}
+
+theme-input-dark {
+  background-color: var(--theme-color);
+  border-color: var(--text-color);
+}
+
+bg-input-light {
   background-color: var(--bg-color);
+  border-color: var(--bg-color);
 }
 
 .bg {
   background-color: var(--secondary);
+}
+
+.theme-dark {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.theme-light {
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }
