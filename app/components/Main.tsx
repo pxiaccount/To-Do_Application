@@ -17,7 +17,6 @@ const Main = () => {
     const [descNum, setDescNum] = useState<number | null>(null)
     const [date, setDate] = useState('')
     const [desc, setDesc] = useState('')
-    const [search, setSearch] = useState(false)
     const [query, setQuery] = useState('')
 
     const update = () => {
@@ -65,7 +64,7 @@ const Main = () => {
       <input id='date' className="mx-2 w-28 text-xl mt-10 outline-none theme-dark" type="text" value={date} onChange={(e) => setDate(e.target.value)}/>
     </form>
       <button type='submit' className='mx-5 bg-slate-100 text-slate-900 rounded-lg font-bold w-64 py-3 my-5 hover:bg-slate-300 hover:text-slate-950 outline-none' onClick={update}>Add</button>
-      <div className='flex p-3 border-2 border-white rounded-3xl mr-52' onMouseOver={() => setSearch(true)} onMouseLeave={() => setSearch(false)}>
+      <div className='flex p-3 border-2 border-white rounded-3xl mr-52'>
         <Image src='search.svg' alt='search-icon' width='30' height='30' className='inline-block'></Image>
         <form onSubmit={(e) => e.preventDefault()}>
           <input type="text" placeholder='Search' className='mx-2 text-xl text-start outline-none theme-dark w-48' onChange={(e) => setQuery(e.target.value)} value={query} />
