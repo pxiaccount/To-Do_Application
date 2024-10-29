@@ -8,7 +8,7 @@ interface dataType {
   content: string,
   id: number,
   due: string,
-  description: string
+  description: string,
 }
 const Main = () => {
     const [text, setText] = useState('')
@@ -17,13 +17,19 @@ const Main = () => {
     const [descNum, setDescNum] = useState<number | null>(null)
     const [date, setDate] = useState('')
     const [desc, setDesc] = useState('')
-    
+    const [search, setSearch] = useState(false)
+    const [query, setQuery] = useState('')
+
     const update = () => {
         if (text != "") {
           setData(
             [
                 ...data,
-                {id: ID++, content: text, due: date, description: desc}
+                {id: ID++,
+                 content: text,
+                 due: date,
+                 description: desc,
+                }
             ]
         )
         }
@@ -31,6 +37,10 @@ const Main = () => {
         setDate("")
         setDesc("")
       }
+
+      const searchItem = data.filter(keyword =>
+        keyword.content.includes(query)
+      )
 
     const showPopup = (id: number) => {
       setPopup(popup === id ? null : id)
@@ -54,11 +64,17 @@ const Main = () => {
       <label htmlFor="todoText" className='absolute font-serif italic top-48 opacity-50'>Due Date (optional)</label>
       <input id='date' className="mx-2 w-28 text-xl mt-10 outline-none theme-dark" type="text" value={date} onChange={(e) => setDate(e.target.value)}/>
     </form>
-      <button className='mx-5 bg-slate-100 text-slate-900 rounded-lg font-bold w-64 py-3 my-5 hover:bg-slate-300 hover:text-slate-950 outline-none' onClick={update}>Add</button>
+      <button type='submit' className='mx-5 bg-slate-100 text-slate-900 rounded-lg font-bold w-64 py-3 my-5 hover:bg-slate-300 hover:text-slate-950 outline-none' onClick={update}>Add</button>
+      <div className='flex p-3 border-2 border-white rounded-3xl mr-52' onMouseOver={() => setSearch(true)} onMouseLeave={() => setSearch(false)}>
+        <Image src='search.svg' alt='search-icon' width='30' height='30' className='inline-block'></Image>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input type="text" placeholder='Search' className='mx-2 text-xl text-start outline-none theme-dark w-48' onChange={(e) => setQuery(e.target.value)} value={query} />
+        </form>
+    </div>
       <ul className='text-start align-middle'>
-        {data.map(x => (
-          <li className="flex flex-wrap gap-4 justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg transition-all" key={x.id} >
-                <div className='my-1 inline-block hover:text-gray-300 hover:underline cursor-pointer select-none' onClick={() => showDesc(x.id)}>{x.content}</div>
+          {searchItem.map((x) => (
+            <li className="flex flex-wrap gap-4 justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg transition-all" key={x.id}>
+              <div className='my-1 inline-block hover:text-gray-300 hover:underline cursor-pointer select-none' onClick={() => showDesc(x.id)}>{x.content}</div>
                 <div className='absolute mt-7 font-serif italic opacity-50 ml-56'>{x.due}</div>
                 <div className='inline-block'>
                 <div className='p-2 inline-block cursor-pointer select-none' onClick={() => showPopup(x.id)}>
@@ -79,8 +95,8 @@ const Main = () => {
                   </div>
               )}
             </li>
-        ))}
-      </ul>
+          ))}
+        </ul>
     </>
   )
 }
