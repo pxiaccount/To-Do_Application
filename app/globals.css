@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  font-family: sans-serif;
+  font-family: Inter;
   --bg-color: #292929;
   --text-color: #ffffff;
   --danger: #af2020;
@@ -15,7 +15,7 @@ body {
   color: var(--text-color);
 }
 
-input[type=text] {
+input[type="text"] {
   border-bottom: 3px solid;
 }
 
@@ -41,4 +41,8 @@ bg-input-light {
 .theme-light {
   background-color: var(--text-color);
   color: var(--bg-color);
+}
+
+ul {
+  margin-bottom: 415px;
 }
