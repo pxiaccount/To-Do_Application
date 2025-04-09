@@ -19,7 +19,6 @@ const Main = () => {
   const [date, setDate] = useState("");
   const [desc, setDesc] = useState("");
   const [query, setQuery] = useState("");
-  const [check, setCheck] = useState(false);
 
   const update = () => {
     if (text != "") {
