@@ -9,6 +9,7 @@ interface dataType {
   id: number;
   due: string;
   description: string;
+  checked: boolean;
 }
 const Main = () => {
   const [text, setText] = useState("");
@@ -18,17 +19,30 @@ const Main = () => {
   const [date, setDate] = useState("");
   const [desc, setDesc] = useState("");
   const [query, setQuery] = useState("");
+  const [check, setCheck] = useState(false);
 
   const update = () => {
     if (text != "") {
       setData([
         ...data,
-        { id: ID++, content: text, due: date, description: desc },
+        {
+          id: ID++,
+          content: text,
+          due: date,
+          description: desc,
+          checked: false
+        },
       ]);
     }
     setText("");
     setDate("");
     setDesc("");
+  };
+
+  const handleCheck = (id: number) => {
+    setData(data.map(item =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    ));
   };
 
   const searchItem = data.filter((keyword) => keyword.content.includes(query));
@@ -103,11 +117,18 @@ const Main = () => {
       <ul className="text-start align-middle">
         {searchItem.map((x) => (
           <li
-            className="flex flex-wrap gap-4 justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg transition-all"
+            className="flex flex-wrap gap-4 justify-between text-xl py-5 w-96 my-5 rounded-lg text-white pl-5 bg transition-all items-center"
             key={x.id}
           >
+            <input
+              type="checkbox"
+              checked={x.checked}
+              onChange={() => handleCheck(x.id)}
+              className="w-5 h-5 cursor-pointer self-center"
+            />
             <div
-              className="my-1 inline-block hover:text-gray-300 hover:underline cursor-pointer select-none"
+              className={`flex-1 hover:text-gray-300 hover:underline cursor-pointer select-none ${x.checked ? 'line-through opacity-50' : ''
+                }`}
               onClick={() => showDesc(x.id)}
             >
               {x.content}
